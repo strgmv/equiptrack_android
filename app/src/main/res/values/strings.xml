@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">EquipTrack</string>
+    <string name="equipments">equipments</string>
+    <string name="my_equip">my equipments</string>
+    <string name="settings">settings</string>
+    <string name="equipment">equipment</string>
+    <string name="user_equip">equipments</string>
+    <string name="auth">Authorization</string>
+    <string name="unknown_auth_err_msg">Unknown error occurred</string>
+    <string name="authorisation_form_header">Authorization</string>
+    <string name="form_login_hint">login:</string>
+    <string name="form_password_hint">password</string>
+    <string name="equip_reserved">reserved</string>
+    <string name="equip_available">available</string>
+    <string name="equip_available_err">reservation state unknown</string>
+    <string name="reservation_sub">reserved at:</string>
+    <string name="no_data">no data available</string>
+    <string name="admin_add_user">create user</string>
+    <string name="admin_user_menu">manage users</string>
+    <string name="admin_equipments_menu">manage equipments</string>
+    <string name="logout">logout</string>
+    <string name="reserve_btn">reserve equipment</string>
+    <string name="reserve_route">reserve</string>
+    <string name="register_route">register_user</string>
+    <string name="create_equip">create_equipment</string>
+</resources>
