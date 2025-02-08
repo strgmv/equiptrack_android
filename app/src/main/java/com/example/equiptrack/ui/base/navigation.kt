@@ -1,5 +1,6 @@
 package com.example.equiptrack.ui.base
 
+import android.util.Log
 import androidmads.library.qrgenearator.QRGContents
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -47,11 +48,12 @@ fun EquipTrackNavHost(
     val navController = rememberNavController()
 //    val navBackStackEntry by navController.currentBackStackEntryAsState()
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
-    val startScreen = if (viewModel.userIdState.value != "") Route.MyEquipments
+    val startScreen = if (viewModel.userState.IdState.value != "") Route.MyEquipments
         else Route.Authorization
-    val bottomMenuList = if (viewModel.userRoleState.value == "admin") adminBottomBarScreen
+//    val role = viewModel.userState.RoleState.value
+    val bottomMenuList = if (viewModel.userState.RoleState.value == "admin") adminBottomBarScreen
         else bottomBarScreens
-
+    Log.d("aaaa", "aaaa")
     Scaffold(
         bottomBar = {
             AnimatedVisibility(

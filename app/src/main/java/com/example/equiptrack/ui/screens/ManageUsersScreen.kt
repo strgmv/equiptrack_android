@@ -85,7 +85,8 @@ fun ManageUsersScreen(
                 ) {
                     UserItem (
                         user = lazyUserItems[it]!!,
-                        navigateToEdit = { id: String -> navHostController.navigate("edit_user/%s".format(id)) },
+//                        navigateToEdit = { id: String -> navHostController.navigate("edit_user/%s".format(id)) },
+                        navigateToEdit = {  },
                         delete = { id: String ->
                             viewModel.deleteUser(id)
                             refresh()

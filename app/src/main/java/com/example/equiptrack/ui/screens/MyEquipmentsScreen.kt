@@ -50,7 +50,7 @@ fun MyEquipmentsScreen(
     navHostController: NavHostController
 ) {
     val viewModel = hiltViewModel<EquipmentViewModel, EquipmentViewModel.EquipmentViewModelFactory> { factory ->
-        factory.create(authViewModel.userIdState.value)
+        factory.create(authViewModel.userState.IdState.value)
     }
     val context = LocalContext.current
 
@@ -152,7 +152,7 @@ fun scanQr(context: Context, navHostController: NavHostController) {
             if (barcode.rawValue != null) {
                 val value = barcode.rawValue!!
                 val regex =
-                    """^reserve/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$""".toRegex()
+                    """^equipment/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$""".toRegex()
                 if (regex.matches(value)) {
                     navHostController.navigate(value)
                 } else {

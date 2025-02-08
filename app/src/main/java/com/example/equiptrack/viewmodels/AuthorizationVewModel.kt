@@ -27,17 +27,12 @@ import javax.inject.Inject
 class AuthorizationVewModel
 @Inject constructor(
     private var authRepository: AuthRepository,
-    private var tokenManager: JwtTokenManager
+    private var tokenManager: JwtTokenManager,
+    val userState: UserState
 ) : ViewModel(), LifecycleObserver {
 
     private val  _eventFlow = MutableSharedFlow<AuthEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
-
-    private val _userIdState = mutableStateOf("")
-    val userIdState: State<String> = _userIdState
-
-    private val _userRoleState = mutableStateOf("")
-    val userRoleState: State<String> = _userRoleState
 
     private val _loginState = mutableStateOf("")
     val loginState: State<String> = _loginState
@@ -53,22 +48,6 @@ class AuthorizationVewModel
         _passwordState.value = value
     }
 
-    init {
-        runBlocking {
-            try {
-                _userIdState.value = tokenManager.getUserId() ?: ""
-                _userRoleState.value = tokenManager.getUserRole() ?: ""
-                if (_userIdState.value == "" || !authRepository.isAuthorized()) {
-                    tokenManager.clearAllTokens()
-                    _userIdState.value = ""
-                }
-            } catch (e: Exception) {
-//                _userIdState.value = ""
-                _eventFlow.emit(AuthEvent.SnackbarEvent(e.message ?: "unknown err"))
-            }
-        }
-    }
-
     fun login() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -81,8 +60,8 @@ class AuthorizationVewModel
                 tokenManager.saveUserId(response.user.id)
                 tokenManager.saveUserRole(response.user.role)
 
-                _userIdState.value = response.user.id
-                _userRoleState.value = response.user.role
+                userState.setRole(response.user.role)
+                userState.setId(response.user.id)
 
                 _eventFlow.emit(
                     AuthEvent.NavigateEvent(Route.MyEquipments.route)
@@ -106,8 +85,7 @@ class AuthorizationVewModel
 
                 tokenManager.clearAllTokens()
 
-                _userIdState.value = ""
-                _userRoleState.value = ""
+                userState.logout()
 
             } catch (e: Exception) {
                 _eventFlow.emit(AuthEvent.SnackbarEvent(e.message ?: "Unknown error occurred"))

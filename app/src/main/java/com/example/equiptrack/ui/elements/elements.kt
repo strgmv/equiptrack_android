@@ -58,7 +58,7 @@ fun ErrorItem(
             maxLines = 1,
             modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.Red
+            color = MaterialTheme.colorScheme.error
         )
         OutlinedButton(onClick = onClickRetry) {
             Text(text = "Try again")
